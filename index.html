@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meelike Clone - Red Theme</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Meelike - Red UI</h1>
+    
+    <!-- ฟอร์มล็อกอิน -->
+    <div id="loginBox">
+      <h2>เข้าสู่ระบบ</h2>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">เข้าสู่ระบบ</button>
+    </div>
+
+    <!-- เมื่อ login แล้วจะเห็นปุ่ม -->
+    <div id="app" style="display:none;">
+      <h2>📌 Dashboard</h2>
+      <button onclick="callAPI('order')">สั่งซื้อ</button>
+      <button onclick="callAPI('status')">เช็คสถานะ</button>
+      <button onclick="logout()">ออกจากระบบ</button>
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
