@@ -1,33 +1,239 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="lo">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meelike Clone - Red Theme</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natniti Social</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Meelike - Red UI</h1>
-    
-    <!-- ฟอร์มล็อกอิน -->
-    <div id="loginBox">
-      <h2>เข้าสู่ระบบ</h2>
-      <input type="text" id="username" placeholder="Username" />
-      <input type="password" id="password" placeholder="Password" />
-      <button onclick="login()">เข้าสู่ระบบ</button>
-    </div>
 
-    <!-- เมื่อ login แล้วจะเห็นปุ่ม -->
-    <div id="app" style="display:none;">
-      <h2>📌 Dashboard</h2>
-      <button onclick="callAPI('order')">สั่งซื้อ</button>
-      <button onclick="callAPI('status')">เช็คสถานะ</button>
-      <button onclick="logout()">ออกจากระบบ</button>
-      <div id="result"></div>
-    </div>
-  </div>
+    <div class="main-container">
 
-  <script src="app.js"></script>
+        <div class="page active-page" id="login-page">
+            <div class="auth-card">
+                <div class="logo">
+                    <img src="https://example.com/natniti-social-logo.png" alt="Natniti Social Logo">
+                </div>
+                <div class="auth-form-container" id="auth-form-container">
+                    <div id="signin-form">
+                        <h2>ເຂົ້າສູ່ລະບົບ</h2>
+                        <form id="login-form">
+                            <div class="form-group">
+                                <label for="login-username">ຊື່ຜູ້ໃຊ້</label>
+                                <input type="text" id="login-username" placeholder="ກະລຸນາປ້ອນຊື່ຜູ້ໃຊ້">
+                            </div>
+                            <div class="form-group">
+                                <label for="login-password">ລະຫັດຜ່ານ</label>
+                                <input type="password" id="login-password" placeholder="ກະລຸນາປ້ອນລະຫັດຜ່ານ">
+                            </div>
+                            <button type="submit" class="auth-button">ເຂົ້າສູ່ລະບົບ</button>
+                        </form>
+                        <p class="toggle-link">ຍັງບໍ່ມີບັນຊີ? <a href="#" id="show-signup">ສ້າງບັນຊີໃໝ່</a></p>
+                    </div>
+
+                    <div id="signup-form" style="display:none;">
+                        <h2>ສ້າງບັນຊີໃໝ່</h2>
+                        <form id="register-form">
+                            <div class="form-group">
+                                <label for="signup-username">ຊື່ຜູ້ໃຊ້</label>
+                                <input type="text" id="signup-username" placeholder="ກະລຸນາປ້ອນຊື່ຜູ້ໃຊ້">
+                            </div>
+                            <div class="form-group">
+                                <label for="signup-password">ລະຫັດຜ່ານ</label>
+                                <input type="password" id="signup-password" placeholder="ກະລຸນາປ້ອນລະຫັດຜ່ານ">
+                            </div>
+                            <button type="submit" class="auth-button">ສ້າງບັນຊີ</button>
+                        </form>
+                        <p class="toggle-link">ມີບັນຊີແລ້ວບໍ? <a href="#" id="show-signin">ເຂົ້າສູ່ລະບົບ</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="dashboard-page">
+            <div class="sidebar">
+                <div class="logo desktop-logo">
+                    <img src="https://example.com/natniti-social-logo.png" alt="Natniti Social Logo">
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="#" class="active" data-page="purchase-page"><i class="fas fa-shopping-cart"></i><span>ເລືອກຊື້</span></a></li>
+                        <li><a href="#" data-page="multi-order-page"><i class="fas fa-file-alt"></i><span>ສັ່ງຫຼາຍລາຍການ</span></a></li>
+                        <li><a href="#" data-page="top-up-page"><i class="fas fa-wallet"></i><span>ເຕີມເງິນ</span></a></li>
+                        <li><a href="#" data-page="order-history-page"><i class="fas fa-clipboard-list"></i><span>ປະຫວັດການສັ່ງຊື້</span></a></li>
+                        <li><a href="#" id="logout-button"><i class="fas fa-sign-out-alt"></i><span>ອອກຈາກລະບົບ</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="content-area">
+                <header class="top-bar">
+                    <div class="user-profile">
+                        <img src="https://example.com/profile-pic.png" alt="User Profile">
+                        <span class="username">Natniti</span>
+                    </div>
+                </header>
+                <main class="page-content active-content" id="purchase-page">
+                    <h2>ໜ້າເລືອກຊື້</h2>
+                    <div class="service-list-container">
+                        <h3>ລາຍການບໍລິການທີ່ນິຍົມ</h3>
+                        <div class="service-card">
+                            <i class="fab fa-tiktok"></i>
+                            <h4>ເພີ່ມຜູ້ຕິດຕາມ TikTok</h4>
+                            <p>ຜູ້ຕິດຕາມຄຸນນະພາບ ເລີ່ມວຽກທັນທີ</p>
+                            <span class="price">ລາຄາ: ₭45,000 / 1000 ຄົນ</span>
+                            <button class="select-service-btn">ເລືອກ</button>
+                        </div>
+                        <div class="service-card">
+                            <i class="fab fa-instagram"></i>
+                            <h4>ເພີ່ມຍອດຖືກໃຈ Instagram</h4>
+                            <p>ຍອດຖືກໃຈຈາກບັນຊີຈິງ ໄວທັນໃຈ</p>
+                            <span class="price">ລາຄາ: ₭30,000 / 1000 ຖືກໃຈ</span>
+                            <button class="select-service-btn">ເລືອກ</button>
+                        </div>
+                    </div>
+                </main>
+                <main class="page-content" id="multi-order-page">
+                    <h2>ໜ້າສັ່ງຊື້ຫຼາຍລາຍການ</h2>
+                    <p>ກະລຸນາປ້ອນຂໍ້ມູນການສັ່ງຊື້ຫຼາຍລາຍການໃນຟອມດ້ານລຸ່ມ</p>
+                    <textarea rows="10" placeholder="ຮູບແບບການປ້ອນຂໍ້ມູນ: ລິ້ງ, ປະລິມານ, ID ບໍລິການ"></textarea>
+                    <button class="submit-button">ຢືນຢັນການສັ່ງຊື້</button>
+                </main>
+                <main class="page-content" id="top-up-page">
+                    <h2>ໜ້າເຕີມເງິນ</h2>
+                    <div class="top-up-options">
+                        <p>ເລືອກວິທີການເຕີມເງິນ:</p>
+                        <button class="top-up-btn">ໂອນເງິນຜ່ານທະນາຄານ</button>
+                        <button class="top-up-btn">ພ້ອມເພຍ</button>
+                        <button class="top-up-btn">True Money</button>
+                    </div>
+                </main>
+                <main class="page-content" id="order-history-page">
+                    <h2>ໜ້າປະຫວັດການສັ່ງຊື້</h2>
+                    <div class="history-table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>ບໍລິການ</th>
+                                    <th>ປະລິມານ</th>
+                                    <th>ສະຖານະ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#1001</td>
+                                    <td>ຜູ້ຕິດຕາມ TikTok</td>
+                                    <td>5,000</td>
+                                    <td class="status-completed">ສຳເລັດ</td>
+                                </tr>
+                                <tr>
+                                    <td>#1002</td>
+                                    <td>ຍອດຖືກໃຈ Instagram</td>
+                                    <td>10,000</td>
+                                    <td class="status-in-progress">ກຳລັງດຳເນີນການ</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <div class="page" id="admin-page">
+            <div class="sidebar">
+                <div class="logo desktop-logo">
+                    <img src="https://example.com/natniti-social-logo.png" alt="Natniti Social Logo">
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="#" class="active" data-page="admin-dashboard"><i class="fas fa-tachometer-alt"></i><span>ແດັຊບອດ</span></a></li>
+                        <li><a href="#" data-page="admin-users"><i class="fas fa-users"></i><span>ຈັດການຜູ້ໃຊ້</span></a></li>
+                        <li><a href="#" data-page="admin-services"><i class="fas fa-cogs"></i><span>ຈັດການບໍລິການ</span></a></li>
+                        <li><a href="#" id="admin-logout-button"><i class="fas fa-sign-out-alt"></i><span>ອອກຈາກລະບົບ</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="content-area">
+                <header class="top-bar">
+                    <div class="user-profile">
+                        <img src="https://example.com/profile-pic.png" alt="Admin Profile">
+                        <span class="username">Admin</span>
+                    </div>
+                </header>
+                <main class="page-content active-content" id="admin-dashboard">
+                    <h2>ໜ້າແດັຊບອດຜູ້ເບິ່ງແຍງລະບົບ</h2>
+                    <div class="admin-stats-card">
+                        <h3>ສະຖິຕິໂດຍລວມ</h3>
+                        <p>ຈຳນວນຜູ້ໃຊ້ທັງໝົດ: <strong>1,250</strong></p>
+                        <p>ຍອດການສັ່ງຊື້ມື້ນີ້: <strong>55</strong></p>
+                        <p>ລາຍຮັບລວມ: <strong>₭9,120,000</strong></p>
+                    </div>
+                </main>
+                <main class="page-content" id="admin-users">
+                    <h2>ຈັດການຜູ້ໃຊ້</h2>
+                    <div class="admin-table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>ຊື່ຜູ້ໃຊ້</th>
+                                    <th>ຍອດເຫຼືອ</th>
+                                    <th>ການຈັດການ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>001</td>
+                                    <td>user01</td>
+                                    <td>₭300,000</td>
+                                    <td><button class="manage-btn">ແກ້ໄຂ</button></td>
+                                </tr>
+                                <tr>
+                                    <td>002</td>
+                                    <td>user02</td>
+                                    <td>₭150,000</td>
+                                    <td><button class="manage-btn">ແກ້ໄຂ</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+                <main class="page-content" id="admin-services">
+                    <h2>ຈັດການບໍລິການ</h2>
+                    <div class="admin-table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>ຊື່ບໍລິການ</th>
+                                    <th>ລາຄາ</th>
+                                    <th>ການຈັດການ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>3043</td>
+                                    <td>ຜູ້ຕິດຕາມ TikTok</td>
+                                    <td>₭45,000</td>
+                                    <td><button class="manage-btn">ແກ້ໄຂ</button></td>
+                                </tr>
+                                <tr>
+                                    <td>4050</td>
+                                    <td>ຍອດຖືກໃຈ Instagram</td>
+                                    <td>₭30,000</td>
+                                    <td><button class="manage-btn">ແກ້ໄຂ</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
